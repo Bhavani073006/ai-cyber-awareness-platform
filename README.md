@@ -34,7 +34,7 @@ The platform analyzes user activity and generates a **risk score** when employee
 
 ## Project Structure
 
-```id="g5cr1p"
+```
 project-folder/
 │
 ├── app.py            # Main Flask application
@@ -51,7 +51,7 @@ project-folder/
 
 ### 1. Create Virtual Environment
 
-```bash id="f9caj5"
+```bash
 python -m venv venv
 ```
 
@@ -59,33 +59,33 @@ python -m venv venv
 
 Windows
 
-```bash id="s5u6aj"
+```bash
 venv\Scripts\activate
 ```
 
 Linux / macOS
 
-```bash id="c3glc7"
+```bash
 source venv/bin/activate
 ```
 
 ### 3. Install Dependencies
 
-```bash id="smnax9"
+```bash
 pip install -r requirements.txt
 ```
 
 ### 4. Run the Application
 
-```bash id="nspscs"
+```bash
 python app.py
 ```
 
+## Run the Application
+
 Open the application in your browser:
 
-```id="qch0tf"
-[http://localhost:5000](http://127.0.0.1:5000)
-```
+🔗 **[Open Application](http://localhost:5000)**
 
 ## Future Improvements
 
