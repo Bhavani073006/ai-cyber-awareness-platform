@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Alerts - Aurora SOC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .alerts-container {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .alert-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        
+        .alert-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .alert-card.unread {
+            border-left: 4px solid #ff4444;
+            background: #fff5f5;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .alert-type {
+            background: #ff4444;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .alert-type.info {
+            background: #00c851;
+        }
+        
+        .employee-info {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .employee-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .alert-message {
+            margin: 10px 0;
+            color: #555;
+        }
+        
+        .alert-time {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .alert-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #0066cc;
+            color: #0066cc;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .filter-btn.active {
+            background: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 Security Alerts</h1>
+        
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterAlerts('all')">All</button>
+            <button class="filter-btn" onclick="filterAlerts('unread')">Unread</button>
+            <button class="filter-btn" onclick="filterAlerts('high')">High Severity</button>
+        </div>
+        
+        <div class="alerts-container" id="alertsContainer">
+            {% for alert in alerts %}
+            <div class="alert-card {% if not alert.is_read %}unread{% endif %}" data-severity="{{ alert.severity }}" data-read="{{ alert.is_read }}">
+                <div class="alert-content">
+                    <div class="alert-header">
+                        <span class="alert-type {% if alert.severity == 'INFO' %}info{% endif %}">
+                            {{ alert.alert_type }}
+                        </span>
+                        <span class="employee-info">
+                            <span class="employee-name">{{ alert.name }}</span> 
+                            ({{ alert.email }}) - {{ alert.department }}
+                        </span>
+                    </div>
+                    
+                    <div class="alert-message">
+                        {{ alert.message }}
+                    </div>
+                    
+                    <div class="alert-time">
+                        {{ alert.created_at }}
+                    </div>
+                </div>
+                
+                <div class="alert-actions">
+                    {% if not alert.is_read %}
+                    <button class="btn btn-primary" onclick="markAsRead({{ alert.alert_id }})">Mark Read</button>
+                    {% endif %}
+                    <a href="/user/{{ alert.user_id }}" class="btn btn-outline">View User</a>
+                </div>
+            </div>
+            {% else %}
+            <p style="text-align: center; padding: 40px; color: #666;">No alerts found</p>
+            {% endfor %}
+        </div>
+        
+        <a href="/dashboard" class="back-link">← Back to Dashboard</a>
+    </div>
+    
+    <script>
+        function markAsRead(alertId) {
+            fetch(`/alert/${alertId}/read`, {
+                method: 'POST'
+            }).then(() => {
+                location.reload();
+            });
+        }
+        
+        function filterAlerts(filter) {
+            const alerts = document.querySelectorAll('.alert-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            alerts.forEach(alert => {
+                if (filter === 'all') {
+                    alert.style.display = 'flex';
+                } else if (filter === 'unread') {
+                    alert.style.display = alert.dataset.read === '0' ? 'flex' : 'none';
+                } else if (filter === 'high') {
+                    alert.style.display = alert.dataset.severity === 'HIGH' ? 'flex' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

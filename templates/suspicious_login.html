@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aurora Company | Secure Login Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        
+        .company-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .company-name {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .security-badge {
+            background: #ffd700;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        
+        .warning-banner {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .warning-icon {
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .password-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .security-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .security-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .footer-note a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .urgent-badge {
+            background: #dc3545;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="company-header">
+                <div class="company-logo">ABC</div>
+                <div class="company-name">ABC Corporation</div>
+                <span class="security-badge">🔒 Secure Enterprise Login</span>
+            </div>
+            
+            <div class="warning-banner">
+                <span class="warning-icon">⚠️</span>
+                <span><strong>Security Alert:</strong> Unusual login attempt detected. Please verify your credentials immediately to prevent account suspension.</span>
+                <span class="urgent-badge">URGENT</span>
+            </div>
+            
+            <form method="post" action="/capture">
+                <input type="hidden" name="link_id" value="{{ link_id }}">
+                
+                <div class="form-group">
+                    <label>Company Email Address</label>
+                    <input type="email" name="email" placeholder="e.g., john.doe@abccorp.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                    <div class="password-hint">For security, we never store your actual password</div>
+                </div>
+                
+                <button type="submit" class="login-btn">Verify & Continue</button>
+            </form>
+            
+            <div class="security-info">
+                <span>🔐 256-bit SSL Encrypted</span>
+                <span>🏢 Corporate Access Only</span>
+            </div>
+            
+            <div class="footer-note">
+                <p>This is a simulated phishing test. <a href="/">Learn more</a> about our security awareness program.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Training Complete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .info-box {
+            background: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .value {
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .score-decrease {
+            color: #00b09b;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .success-note {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 20px;
+            border-left: 4px solid #00b09b;
+        }
+        
+        .email-display {
+            background: #e8f0fe;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        
+        .green-text {
+            color: #00b09b;
+            font-size: 18px;
+        }
+        
+        .reward-badge {
+            background: #00b09b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00b09b;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <div class="icon">✅</div>
+        <span class="reward-badge">🏆 TRAINING COMPLETE</span>
+        <h2>Security Training Completed!</h2>
+        
+        {% if user %}
+        <div class="message">
+            Thank you for completing the security awareness training. Your good security practices have been recorded and rewarded!
+        </div>
+        
+        <div class="email-display">
+            <strong>Email used:</strong> {{ email_provided }}
+        </div>
+        
+        <div class="info-box">
+            <div class="info-item">
+                <span class="label">Employee Name:</span>
+                <span class="value">{{ user.name }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Department:</span>
+                <span class="value">{{ user.department }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Role:</span>
+                <span class="value">{{ user.role }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Risk Score Change:</span>
+                <span class="value score-decrease">-{{ risk_decrease }} points ↓</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Previous Risk Score:</span>
+                <span class="value">{{ user.risk_score }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">New Risk Score:</span>
+                <span class="value green-text">{{ new_score }}</span>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">-{{ risk_decrease }}</div>
+                <div class="stat-label">Points Decreased</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ new_score }}</div>
+                <div class="stat-label">Current Score</div>
+            </div>
+        </div>
+        
+        <div class="success-note">
+            <strong>🌟 Excellent Security Awareness!</strong><br>
+            You've demonstrated good security practices by using the official training link. 
+            Your risk score has been decreased as a reward for completing the training.
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 13px; color: #666;">
+            ✅ Training recorded • 🏅 Security badge earned • 📊 Score updated
+        </div>
+        
+        {% elif unknown_email %}
+        <div class="message">
+            The email <strong>"{{ unknown_email }}"</strong> is not registered in our system.
+        </div>
+        
+        <div class="info-box">
+            <p style="margin-top: 0; color: #dc3545;"><strong>⚠️ Email Not Found</strong></p>
+            <p>Please use your registered company email address to receive credit for training.</p>
+            <div class="email-display" style="margin-top: 10px; background: #fff3cd;">
+                Email attempted: {{ unknown_email }}
+            </div>
+            <p style="margin-bottom: 0; font-size: 13px; color: #666;">Try again with: @auroracompany.com email</p>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <a href="/trusted/1" class="btn" style="background: #6c757d;">Try Again</a>
+        </div>
+        {% endif %}
+        
+        <div style="margin-top: 25px;">
+            <a href="/" class="btn">Return to Security Portal</a>
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 11px; color: #999;">
+            <span>🔐 Security Awareness Training • Aurora Company</span>
+        </div>
+    </div>
+</body>
+</html>

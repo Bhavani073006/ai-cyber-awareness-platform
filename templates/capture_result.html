@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Notice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .info-box {
+            background: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .value {
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .risk-high {
+            color: #ff4444;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .warning-note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <div class="icon">⚠️</div>
+        <h2>Security Awareness Training</h2>
+        
+        {% if user %}
+        <div class="message">
+            This was a simulated phishing test conducted by your organization's security team.
+            Your interaction has been logged for training purposes.
+        </div>
+        
+        <div class="info-box">
+            <div class="info-item">
+                <span class="label">Employee:</span>
+                <span class="value">{{ user.name }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Risk Score Change:</span>
+                <span class="value">+{{ risk_increase }} points</span>
+            </div>
+            <div class="info-item">
+                <span class="label">New Risk Score:</span>
+                <span class="value risk-high">{{ new_score }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Alert Sent To:</span>
+                <span class="value">{{ user.manager_email }}</span>
+            </div>
+        </div>
+        
+        <div class="warning-note">
+            <strong>What happened?</strong><br>
+            You clicked on a simulated phishing link and entered your credentials. 
+            In a real attack, this could have compromised your account. 
+            Please review our security awareness materials to learn how to identify phishing attempts.
+        </div>
+        
+        {% elif unknown_email %}
+        <div class="message">
+            The email "{{ unknown_email }}" is not registered in our system.
+        </div>
+        
+        <div class="info-box">
+            This attempt has been logged for security purposes.
+        </div>
+        {% endif %}
+        
+        <a href="/" class="btn">Return to Security Portal</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Simulation Campaign</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 30px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #00bcd4;
+            margin-bottom: 30px;
+        }
+        
+        .campaign-box {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #00bcd4;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+        
+        .link-container {
+            background: #334155;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .link-container.trusted {
+            border-left: 4px solid #00b09b;
+        }
+        
+        .link-container.suspicious {
+            border-left: 4px solid #dc2626;
+        }
+        
+        .link-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .link-label.red {
+            color: #f87171;
+        }
+        
+        .link-label.green {
+            color: #4ade80;
+        }
+        
+        .link-url {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+        
+        .btn-success {
+            background: #00b09b;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #008b7a;
+        }
+        
+        .btn-copy {
+            background: #4b5563;
+            color: white;
+        }
+        
+        .score-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .score-badge.red {
+            background: #dc2626;
+            color: white;
+        }
+        
+        .score-badge.green {
+            background: #00b09b;
+            color: white;
+        }
+        
+        .info-box {
+            background: #334155;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .stats-comparison {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-item {
+            flex: 1;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #00bcd4;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Security Awareness Training Campaign</h1>
+        
+        <div class="campaign-box">
+            <h2 class="section-title">🔴 Phishing Simulation (Risk +40)</h2>
+            <p style="color: #cbd5e1; margin-bottom: 20px;">
+                These links simulate phishing attacks. Employees who enter credentials will get +40 risk score.
+            </p>
+            
+            <!-- Suspicious/Phishing Links -->
+            <div class="link-container suspicious">
+                <div class="link-label red">🔴 SUSPICIOUS LINK - Phishing Test</div>
+                <div class="link-url">http://localhost:5000/suspicious/1</div>
+                <div style="margin-top: 15px;">
+                    <a class="btn btn-danger" href="/suspicious/1" target="_blank">Test Phishing Link</a>
+                    <button class="btn btn-copy" onclick="copyToClipboard('http://localhost:5000/suspicious/1')">Copy Link</button>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="score-badge red">⚠️ Risk Score: +40</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="campaign-box">
+            <h2 class="section-title">🟢 Trusted Training (Risk -20)</h2>
+            <p style="color: #cbd5e1; margin-bottom: 20px;">
+                These are official training links. Employees who complete training will get -20 risk score (GREEN reward).
+            </p>
+            
+            <!-- Trusted Training Links -->
+            <div class="link-container trusted">
+                <div class="link-label green">🟢 TRUSTED LINK - Security Training</div>
+                <div class="link-url">http://localhost:5000/trusted/1</div>
+                <div style="margin-top: 15px;">
+                    <a class="btn btn-success" href="/trusted/1" target="_blank">Take Training</a>
+                    <button class="btn btn-copy" onclick="copyToClipboard('http://localhost:5000/trusted/1')">Copy Link</button>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="score-badge green">✅ Risk Score: -20 (Reward)</span>
+                </div>
+            </div>
+            
+            <div class="link-container trusted">
+                <div class="link-label green">🟢 TRUSTED LINK - Advanced Security Training</div>
+                <div class="link-url">http://localhost:5000/trusted/2</div>
+                <div style="margin-top: 15px;">
+                    <a class="btn btn-success" href="/trusted/2" target="_blank">Take Advanced Training</a>
+                    <button class="btn btn-copy" onclick="copyToClipboard('http://localhost:5000/trusted/2')">Copy Link</button>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="score-badge green">✅ Risk Score: -20 (Reward)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Comparison -->
+        <div class="stats-comparison">
+            <div class="stat-item">
+                <div class="stat-value" style="color: #dc2626;">+40</div>
+                <div class="stat-label">Phishing Click Penalty</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color: #00b09b;">-20</div>
+                <div class="stat-label">Training Reward</div>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3 style="color: #00bcd4; margin-top: 0;">📊 Score Impact Summary</h3>
+            <ul style="color: #cbd5e1;">
+                <li><span style="color: #dc2626;">🔴 Suspicious Link:</span> Click and enter credentials → <strong>+40 risk score</strong> (Alert sent to manager)</li>
+                <li><span style="color: #00b09b;">🟢 Trusted Link:</span> Complete training → <strong>-20 risk score</strong> (Good security behavior)</li>
+            </ul>
+            <p style="color: #94a3b8; margin-top: 10px;">
+                Use both types of links to test and train employees. The trusted links reward good security awareness!
+            </p>
+        </div>
+        
+        <a href="/dashboard" class="back-link">← Back to Dashboard</a>
+    </div>
+    
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>

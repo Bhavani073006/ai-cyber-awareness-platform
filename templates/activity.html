@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Logs - HackShield SOC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            margin: 0;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        select, input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #003366;
+            color: white;
+            padding: 12px;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .phishing-badge {
+            background: #ff4444;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            padding: 5px 10px;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background: #003366;
+            color: white;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>📊 Employee Phishing Activity Logs</h2>
+    <div class="stats">
+        <div class="stat-box">Total Logs: {{ logs|length }}</div>
+        <div class="stat-box">Phishing Clicks: {{ logs|selectattr("action", "equalto", "Clicked Phishing Link & Entered Credentials")|list|length }}</div>
+    </div>
+</div>
+
+<div class="filter-section">
+    <label>Filter by Department:</label>
+    <select id="deptFilter">
+        <option value="all">All Departments</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Human Resources">Human Resources</option>
+        <option value="Sales">Sales</option>
+        <option value="Finance">Finance</option>
+        <option value="Marketing">Marketing</option>
+    </select>
+    
+    <label>Search Employee:</label>
+    <input type="text" id="searchInput" placeholder="Enter employee name...">
+    
+    <button onclick="applyFilters()">Apply Filters</button>
+</div>
+
+<table id="activityTable">
+    <tr>
+        <th>Employee Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Action</th>
+        <th>IP Address</th>
+        <th>User Agent</th>
+        <th>Timestamp</th>
+    </tr>
+
+    {% for log in logs %}
+    <tr data-department="{{ log.department }}" data-name="{{ log.name }}">
+        <td>{{ log.name }}</td>
+        <td>{{ log.email }}</td>
+        <td>{{ log.department }}</td>
+        <td>
+            {{ log.action }}
+            {% if log.action == "Clicked Phishing Link & Entered Credentials" %}
+                <span class="phishing-badge">PHISHING</span>
+            {% endif %}
+        </td>
+        <td>{{ log.ip_address or 'N/A' }}</td>
+        <td style="font-size: 12px;">{{ log.user_agent or 'N/A' }}</td>
+        <td>{{ log.timestamp }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="pagination">
+    <button class="page-btn" onclick="changePage(1)">1</button>
+    <button class="page-btn" onclick="changePage(2)">2</button>
+    <button class="page-btn" onclick="changePage(3)">3</button>
+</div>
+
+<a href="/dashboard" class="back-link">⬅ Back to Dashboard</a>
+
+<script>
+    function applyFilters() {
+        const dept = document.getElementById('deptFilter').value;
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#activityTable tr:not(:first-child)');
+        
+        rows.forEach(row => {
+            const deptMatch = dept === 'all' || row.dataset.department === dept;
+            const nameMatch = row.dataset.name.toLowerCase().includes(search);
+            row.style.display = deptMatch && nameMatch ? '' : 'none';
+        });
+    }
+    
+    function changePage(page) {
+        // Implement pagination logic
+        const rows = document.querySelectorAll('#activityTable tr:not(:first-child)');
+        const perPage = 10;
+        const start = (page - 1) * perPage;
+        const end = start + perPage;
+        
+        rows.forEach((row, index) => {
+            row.style.display = index >= start && index < end ? '' : 'none';
+        });
+        
+        // Update active page button
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+    }
+    
+    // Initialize pagination
+    changePage(1);
+</script>
+
+</body>
+</html>

