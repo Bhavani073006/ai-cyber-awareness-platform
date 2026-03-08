@@ -1,38 +1,27 @@
-# AI Cyber Awareness Platform
+# An AI-Driven Social Engineering Attack Simulation and Employee Cybersecurity Awareness Enhancement Framework for Modern Organizations
 
 ## Overview
 
-AI Cyber Awareness Platform is a cybersecurity web application that helps organizations detect phishing attacks and improve employee security awareness. The system monitors when employees interact with suspicious links and warns the organization about potential security risks.
+This project is a cybersecurity web application designed to simulate social engineering attacks and improve employee cybersecurity awareness within organizations. The system helps detect when employees interact with suspicious or phishing links and provides alerts to administrators or managers.
 
-## How the Project Works
-
-In an organization, employees may accidentally enter company credentials into phishing websites. This platform detects such activity and analyzes the link to determine whether it is safe or risky.
-
-If an employee enters company details in a phishing link, the system:
-
-1. Detects the suspicious link.
-2. Generates a risk score based on the threat level.
-3. Displays a warning that the link is risky.
-4. Sends an alert to the manager dashboard indicating that an employee attempted to log in through a suspicious link.
-
-This helps organizations identify phishing attacks early and prevent data breaches.
+The platform analyzes user activity and generates a **risk score** when employees enter sensitive company information into potentially harmful links. This helps organizations identify vulnerabilities and prevent data breaches caused by social engineering attacks.
 
 ## Features
 
 * Phishing link detection
-* Risk score calculation
-* Manager dashboard alerts
-* Employee security monitoring
-* Cybersecurity awareness system
+* Employee interaction monitoring
+* Risk score generation for suspicious activities
+* Alerts for risky login attempts
+* Cybersecurity awareness improvement
+* Simple dashboard for monitoring activity
 
-## Project Structure
+## How the System Works
 
-instance/ – Application instance folder
-templates/ – HTML pages for the web interface
-.env – Environment configuration file
-app.py – Main Flask application
-database.db – Database for storing user and alert data
-requirements.txt – Python dependencies
+1. Employees access links during their work activities.
+2. If a user enters company credentials into a suspicious or phishing link, the system analyzes the link.
+3. The system evaluates the threat level and calculates a **risk score**.
+4. If the link is considered dangerous, the system flags it as a **risk link**.
+5. Alerts are generated so managers can monitor and take action.
 
 ## Technologies Used
 
@@ -43,12 +32,69 @@ requirements.txt – Python dependencies
 * JavaScript
 * SQLite Database
 
-## Goal
+## Project Structure
 
-The goal of this project is to help organizations detect phishing attacks quickly and improve employee cybersecurity awareness.
+```id="g5cr1p"
+project-folder/
+│
+├── app.py            # Main Flask application
+├── database.db       # SQLite database storing user and risk data
+├── requirements.txt  # Project dependencies
+├── .env              # Environment variables
+│
+├── instance/         # Flask instance configuration
+│
+└── templates/        # HTML templates for web pages
+```
+
+## Installation & Setup
+
+### 1. Create Virtual Environment
+
+```bash id="f9caj5"
+python -m venv venv
+```
+
+### 2. Activate Environment
+
+Windows
+
+```bash id="s5u6aj"
+venv\Scripts\activate
+```
+
+Linux / macOS
+
+```bash id="c3glc7"
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash id="smnax9"
+pip install -r requirements.txt
+```
+
+### 4. Run the Application
+
+```bash id="nspscs"
+python app.py
+```
+
+Open the application in your browser:
+
+```id="qch0tf"
+http://localhost:5000
+```
 
 ## Future Improvements
 
+* AI-based phishing detection model
+* Real-time attack monitoring dashboard
 * Email phishing detection
-* Real-time security alerts
-* Advanced AI-based threat detection
+* Employee cybersecurity training modules
+* Advanced threat analytics
+
+## Goal
+
+The goal of this project is to help organizations detect social engineering attacks early and improve employee cybersecurity awareness using AI-driven monitoring and risk analysis.
