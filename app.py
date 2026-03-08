@@ -385,7 +385,6 @@ def trusted_capture():
         
         return render_template("trusted_result.html", 
                              unknown_email=email)
-
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000)True)
