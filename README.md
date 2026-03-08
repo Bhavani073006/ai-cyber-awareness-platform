@@ -85,7 +85,7 @@ python app.py
 
 Open the application in your browser:
 
-🔗 **[Open Application](http://localhost:5000)**
+🔗 [**[Open Application](http://localhost:5000)**](https://ai-cyber-awareness-platform-9hxx.onrender.com)
 
 ## Future Improvements
 
