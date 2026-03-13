@@ -83,6 +83,7 @@ python app.py
 
 ## Run the Application
 
+
 Open the application in your browser:
 
 🔗 [**[Open Application](http://localhost:5000)**](https://ai-cyber-awareness-platform-9hxx.onrender.com)
@@ -90,7 +91,6 @@ Open the application in your browser:
 🔗[ View Suspicious Link Example](https://ai-cyber-awareness-platform-9hxx.onrender.com/suspicious/1)
 
 🔗 [View Trusted Link Example](https://ai-cyber-awareness-platform-9hxx.onrender.com/trusted/1)
-
 ## Future Improvements
 
 * AI-based phishing detection model
